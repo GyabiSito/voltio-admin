@@ -1,0 +1,272 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  background: #f4f7f6;
+  color: #13211c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: #f4f7f6;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.admin-login-background {
+  background-image: radial-gradient(circle at 18% 15%, rgb(242 169 59 / 0.2), transparent 22rem);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  outline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 3px solid #d97706 !important;
+  outline-offset: 3px;
+}
+
+.admin-shell {
+  min-height: 100vh;
+  background: radial-gradient(circle at 85% 0%, rgb(39 125 96 / 0.08), transparent 30rem), #f4f7f6;
+}
+
+.surface {
+  border: 1px solid #dbe5e1;
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 0.96);
+  box-shadow: 0 12px 38px rgb(19 33 28 / 0.06);
+}
+
+.field {
+  width: 100%;
+  min-height: 2.75rem;
+  border: 1px solid #667b73;
+  border-radius: 0.75rem;
+  background: white;
+  padding: 0.625rem 0.75rem;
+  color: #13211c;
+}
+
+.field:focus {
+  border-color: #18755a;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  font-weight: 750;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  filter: saturate(0.55);
+}
+
+.button-primary {
+  background: #176b53;
+  color: white;
+}
+
+.button-primary:not(:disabled):hover {
+  background: #105943;
+}
+
+.button-secondary {
+  border-color: #667b73;
+  background: white;
+  color: #213f34;
+}
+
+.button-danger {
+  background: #a43737;
+  color: white;
+}
+
+.eyebrow {
+  color: #176b53;
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.page-title {
+  margin: 0.25rem 0 0;
+  color: #10271f;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  background: #edf3f0;
+  padding: 0.3rem 0.65rem;
+  color: #29463b;
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.status-badge::before {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+.status-active,
+.status-open,
+.status-published {
+  background: #e3f5ec;
+  color: #126648;
+}
+
+.status-closed,
+.status-hidden,
+.status-actioned {
+  background: #f4e8e7;
+  color: #8f3434;
+}
+
+.status-dismissed {
+  background: #f5efe2;
+  color: #72581d;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  color: #587068;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid #e3ebe8;
+  padding: 0.9rem 0.75rem;
+  vertical-align: top;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table tbody tr:hover {
+  background: #f8fbfa;
+}
+
+.detail-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.detail-item dt {
+  color: #667b73;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.detail-item dd {
+  margin: 0.3rem 0 0;
+  overflow-wrap: anywhere;
+  font-weight: 650;
+}
+
+.untrusted-text {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.mobile-card-list {
+  display: none;
+}
+
+dialog::backdrop {
+  background: rgb(11 25 20 / 0.62);
+  backdrop-filter: blur(3px);
+}
+
+::placeholder {
+  color: #475569;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .desktop-table {
+    display: none;
+  }
+
+  .mobile-card-list {
+    display: grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
