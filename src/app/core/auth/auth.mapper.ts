@@ -21,7 +21,11 @@ const USER_KEYS = [
 ] as const;
 
 export function mapAdminIdentity(value: unknown): AdminIdentity {
-  const record = exactRecord(value, USER_KEYS, 'authenticated user');
+  const keys =
+    typeof value === 'object' && value !== null && !Array.isArray(value) && 'language' in value
+      ? [...USER_KEYS, 'language']
+      : USER_KEYS;
+  const record = exactRecord(value, keys, 'authenticated user');
   const roles = stringArray(record['roles'], AUTH_ROLES) as AuthRole[];
   const roleKey =
     record['roleKey'] === null ? null : enumValue(record['roleKey'], AUTH_ROLES, 'primary role');

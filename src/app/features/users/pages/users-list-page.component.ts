@@ -6,13 +6,14 @@ import { RouterLink } from '@angular/router';
 import { AuthStore } from '../../../core/auth/auth.store';
 import { AdminApiError } from '../../../core/http/admin-api-error';
 import { captureIdentity, identityIsCurrent } from '../../../core/http/identity-context';
+import { AdminLanguageService } from '../../../core/i18n/admin-language.service';
 import { CursorListState } from '../../../shared/pagination/cursor-list-state';
 import { DateTimeComponent } from '../../../shared/ui/date-time.component';
 import { EmptyStateComponent } from '../../../shared/ui/empty-state.component';
 import { ListFeedbackComponent } from '../../../shared/ui/list-feedback.component';
 import { LoadMoreComponent } from '../../../shared/ui/load-more.component';
 import { PageHeaderComponent } from '../../../shared/ui/page-header.component';
-import { humanize, StatusBadgeComponent } from '../../../shared/ui/status-badge.component';
+import { StatusBadgeComponent } from '../../../shared/ui/status-badge.component';
 import { UsersApi } from '../data-access/users.api';
 import {
   AdminUserListItem,
@@ -49,7 +50,7 @@ import {
         <select class="field" name="status" [(ngModel)]="filters.status">
           <option value="">All statuses</option>
           @for (status of statuses; track status) {
-            <option [value]="status">{{ humanize(status) }}</option>
+            <option [value]="status">{{ language.translateStatus(status) }}</option>
           }
         </select>
       </label>
@@ -58,7 +59,7 @@ import {
         <select class="field" name="role" [(ngModel)]="filters.role">
           <option value="">All roles</option>
           @for (role of roles; track role) {
-            <option [value]="role">{{ humanize(role) }}</option>
+            <option [value]="role">{{ language.translateStatus(role) }}</option>
           }
         </select>
       </label>
@@ -111,7 +112,7 @@ import {
               @for (user of state.items(); track user.id) {
                 <tr>
                   <td>
-                    <p class="font-bold">{{ user.displayName }}</p>
+                    <p class="font-bold" data-i18n-ignore>{{ user.displayName }}</p>
                     <p class="text-xs text-[#667a73]">ID {{ user.id }}</p>
                   </td>
                   <td>{{ roleLabels(user) }}</td>
@@ -132,7 +133,7 @@ import {
             <li class="rounded-xl border border-[#dce6e2] p-4">
               <div class="flex items-start justify-between gap-3">
                 <div>
-                  <p class="font-bold">{{ user.displayName }}</p>
+                  <p class="font-bold" data-i18n-ignore>{{ user.displayName }}</p>
                   <p class="text-xs text-[#667a73]">ID {{ user.id }}</p>
                 </div>
                 <admin-status-badge [value]="user.status" />
@@ -165,7 +166,7 @@ export class UsersListPageComponent {
   readonly state = new CursorListState<AdminUserListItem>();
   readonly statuses = USER_STATUSES;
   readonly roles = USER_ROLES;
-  readonly humanize = humanize;
+  readonly language = inject(AdminLanguageService);
   filters: UserFilters = { status: '', role: '', emailVerified: '' };
 
   private readonly api = inject(UsersApi);
@@ -195,7 +196,9 @@ export class UsersListPageComponent {
   }
 
   roleLabels(user: AdminUserListItem): string {
-    return user.roles.length === 0 ? 'None' : user.roles.map(humanize).join(', ');
+    return user.roles.length === 0
+      ? this.language.translate('misc.none')
+      : user.roles.map((role) => this.language.translateStatus(role)).join(', ');
   }
 
   private requestPage(generation: number, cursor: string | null, append: boolean): void {

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+
+import { AdminLanguageService } from '../../core/i18n';
 
 @Component({
   selector: 'admin-status-badge',
@@ -7,7 +9,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 })
 export class StatusBadgeComponent {
   readonly value = input.required<string>();
-  readonly label = computed(() => humanize(this.value()));
+  private readonly language = inject(AdminLanguageService);
+  readonly label = computed(() => this.language.translateStatus(this.value()));
   readonly classes = computed(
     () => `status-badge status-${this.value().toLowerCase().replaceAll('_', '-')}`,
   );

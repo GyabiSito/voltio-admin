@@ -5,17 +5,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthSessionService } from '../../../core/auth/auth-session.service';
 import { AuthStore } from '../../../core/auth/auth.store';
 import { safeAdminReturnUrl } from '../../../core/routing/admin-return-url';
+import { AdminLanguageSwitcherComponent } from '../../../shared/ui/language-switcher.component';
 
 @Component({
   selector: 'admin-login-page',
-  imports: [ReactiveFormsModule],
+  imports: [AdminLanguageSwitcherComponent, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main
       class="admin-login-background flex min-h-screen items-center justify-center bg-[#10271f] px-4 py-10"
     >
       <section class="w-full max-w-md rounded-[1.5rem] bg-[#f9fbfa] p-7 shadow-2xl sm:p-10">
-        <div class="mb-8 flex items-center gap-3" aria-label="Voltio Admin">
+        <div class="mb-8 flex items-center justify-between gap-3" aria-label="Voltio Admin">
           <span
             class="grid size-11 place-items-center rounded-xl bg-[#176b53] font-black text-white"
             >V</span
@@ -26,6 +27,7 @@ import { safeAdminReturnUrl } from '../../../core/routing/admin-return-url';
               Restricted operations
             </p>
           </div>
+          <admin-language-switcher />
         </div>
 
         <p class="eyebrow">Administrative access</p>

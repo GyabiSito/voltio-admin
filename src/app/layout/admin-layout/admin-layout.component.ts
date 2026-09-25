@@ -13,6 +13,7 @@ import { filter } from 'rxjs';
 
 import { AuthSessionService } from '../../core/auth/auth-session.service';
 import { AuthStore } from '../../core/auth/auth.store';
+import { AdminLanguageSwitcherComponent } from '../../shared/ui/language-switcher.component';
 
 interface NavigationItem {
   label: string;
@@ -22,7 +23,7 @@ interface NavigationItem {
 
 @Component({
   selector: 'admin-layout',
-  imports: [NgTemplateOutlet, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [AdminLanguageSwitcherComponent, NgTemplateOutlet, RouterLink, RouterLinkActive, RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a
@@ -65,7 +66,7 @@ interface NavigationItem {
 
       <div class="min-w-0">
         <header
-          class="sticky top-0 z-30 flex min-h-16 items-center justify-between border-b border-[#d9e4e0] bg-[#f8faf9]/95 px-4 backdrop-blur sm:px-7"
+          class="sticky top-0 z-30 flex min-h-16 items-center justify-between border-b border-[#d9e4e0] bg-[#f8faf9]/95 px-3 backdrop-blur sm:px-7"
         >
           <button
             #menuButton
@@ -78,11 +79,12 @@ interface NavigationItem {
             Menu
           </button>
           <p class="hidden text-sm font-bold text-[#355047] sm:block">Administrative console</p>
-          <div class="flex min-w-0 items-center gap-3">
-            <div class="min-w-0 text-right">
+          <div class="flex min-w-0 items-center gap-2 sm:gap-3">
+            <div class="hidden min-w-0 text-right sm:block">
               <p class="truncate text-sm font-bold">{{ authStore.user()?.displayName }}</p>
               <p class="text-xs uppercase tracking-wider text-[#6b7e77]">ADMIN</p>
             </div>
+            <admin-language-switcher />
             <button class="button button-secondary" type="button" (click)="logout()">Logout</button>
           </div>
         </header>

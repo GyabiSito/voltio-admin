@@ -9,6 +9,7 @@ import {
 import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { AuthSessionService } from './core/auth/auth-session.service';
+import { AdminLanguageService } from './core/i18n';
 import { apiErrorInterceptor } from './core/http/api-error.interceptor';
 import { authorizationInterceptor } from './core/http/authorization.interceptor';
 import { routes } from './app.routes';
@@ -19,6 +20,9 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions()),
     provideHttpClient(withInterceptors([authorizationInterceptor, apiErrorInterceptor])),
-    provideAppInitializer(() => inject(AuthSessionService).initialize()),
+    provideAppInitializer(() => {
+      inject(AdminLanguageService).initialize();
+      return inject(AuthSessionService).initialize();
+    }),
   ],
 };

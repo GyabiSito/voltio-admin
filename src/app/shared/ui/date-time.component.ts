@@ -1,18 +1,19 @@
-import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+
+import { AdminLanguageService } from '../../core/i18n';
 
 @Component({
   selector: 'admin-date-time',
-  imports: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (value(); as timestamp) {
-      <time [attr.datetime]="timestamp">{{ timestamp | date: 'medium' : 'UTC' }} UTC</time>
+      <time [attr.datetime]="timestamp">{{ language.formatDate(timestamp, { timeStyle: 'short' }) }} UTC</time>
     } @else {
-      <span>Not available</span>
+      <span>{{ language.translate('common.notAvailable') }}</span>
     }
   `,
 })
 export class DateTimeComponent {
   readonly value = input<string | null>(null);
+  readonly language = inject(AdminLanguageService);
 }

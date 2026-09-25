@@ -4,9 +4,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { AuthStore } from '../../../core/auth/auth.store';
 import { captureIdentity, identityIsCurrent } from '../../../core/http/identity-context';
+import { AdminLanguageService } from '../../../core/i18n/admin-language.service';
 import { DateTimeComponent } from '../../../shared/ui/date-time.component';
 import { PageHeaderComponent } from '../../../shared/ui/page-header.component';
-import { humanize, StatusBadgeComponent } from '../../../shared/ui/status-badge.component';
+import { StatusBadgeComponent } from '../../../shared/ui/status-badge.component';
 import { UsersApi } from '../data-access/users.api';
 import { AdminUserDetail } from '../data-access/users.models';
 
@@ -33,7 +34,7 @@ import { AdminUserDetail } from '../data-access/users.models';
         <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p class="eyebrow">Account #{{ current.id }}</p>
-            <h2 class="mt-2 text-2xl font-bold">{{ current.displayName }}</h2>
+            <h2 class="mt-2 text-2xl font-bold" data-i18n-ignore>{{ current.displayName }}</h2>
           </div>
           <admin-status-badge [value]="current.status" />
         </div>
@@ -41,7 +42,7 @@ import { AdminUserDetail } from '../data-access/users.models';
         <dl class="detail-grid mt-7">
           <div class="detail-item">
             <dt>Email</dt>
-            <dd>{{ current.email ?? 'Not available' }}</dd>
+            <dd [attr.data-i18n-ignore]="current.email !== null">{{ current.email ?? 'Not available' }}</dd>
           </div>
           <div class="detail-item">
             <dt>Email verification</dt>
@@ -86,6 +87,7 @@ export class UserDetailPageComponent {
   readonly error = signal<string | null>(null);
   readonly user = signal<AdminUserDetail | null>(null);
   private readonly api = inject(UsersApi);
+  private readonly language = inject(AdminLanguageService);
   private readonly authStore = inject(AuthStore);
   private readonly destroyRef = inject(DestroyRef);
   private readonly id = parsePositiveId(inject(ActivatedRoute).snapshot.paramMap.get('id'));
@@ -98,7 +100,9 @@ export class UserDetailPageComponent {
   }
 
   roleLabels(user: AdminUserDetail): string {
-    return user.roles.length === 0 ? 'None' : user.roles.map(humanize).join(', ');
+    return user.roles.length === 0
+      ? this.language.translate('misc.none')
+      : user.roles.map((role) => this.language.translateStatus(role)).join(', ');
   }
 
   footprint(user: AdminUserDetail): readonly { label: string; value: number }[] {

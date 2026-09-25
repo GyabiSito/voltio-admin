@@ -35,14 +35,14 @@ describe('accessible shared administrative UI', () => {
   it('renders explicit fallback text for unavailable dates', () => {
     const fixture = TestBed.createComponent(DateTimeComponent);
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Not available');
+    expect(fixture.nativeElement.textContent).toContain('No disponible');
   });
 
   it('never communicates status by color alone', () => {
     const fixture = TestBed.createComponent(StatusBadgeComponent);
     fixture.componentRef.setInput('value', 'restriction_lifted');
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Restriction lifted');
+    expect(fixture.nativeElement.textContent).toContain('Restricción levantada');
   });
 
   it('uses a real heading for empty states', () => {
