@@ -1,4 +1,10 @@
-import { enumValue, exactRecord, nonEmptyString, positiveInteger } from './runtime';
+import {
+  enumValue,
+  exactRecord,
+  nonEmptyString,
+  nullableString,
+  positiveInteger,
+} from './runtime';
 
 export const REFERENCE_STATUSES = ['active', 'closed'] as const;
 
@@ -11,6 +17,12 @@ export interface AdminUserReference {
 export interface AdminChargingPointReference {
   id: number;
   title: string;
+}
+
+export interface AdminChargingPointTerritoryReference extends AdminChargingPointReference {
+  countryCode: string | null;
+  currency: string | null;
+  timezone: string | null;
 }
 
 export function mapUserReference(value: unknown): AdminUserReference {
@@ -28,5 +40,21 @@ export function mapChargingPointReference(value: unknown): AdminChargingPointRef
   return {
     id: positiveInteger(record['id']),
     title: nonEmptyString(record['title'], 'charging point title'),
+  };
+}
+
+export function mapChargingPointTerritoryReference(
+  value: unknown,
+): AdminChargingPointTerritoryReference {
+  const record = exactRecord(
+    value,
+    ['id', 'title', 'countryCode', 'currency', 'timezone'],
+    'charging point territory reference',
+  );
+  return {
+    ...mapChargingPointReference({ id: record['id'], title: record['title'] }),
+    countryCode: nullableString(record['countryCode']),
+    currency: nullableString(record['currency']),
+    timezone: nullableString(record['timezone']),
   };
 }

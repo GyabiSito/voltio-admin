@@ -10,6 +10,7 @@ import {
 } from '../../../shared/utilities/runtime';
 import {
   mapChargingPointReference,
+  mapChargingPointTerritoryReference,
   mapUserReference,
 } from '../../../shared/utilities/admin-references';
 import {
@@ -53,7 +54,11 @@ export function mapReviewDetail(value: unknown): AdminReviewDetail {
     ],
     'review detail',
   );
-  const point = exactRecord(record['chargingPoint'], ['id', 'title', 'isActive'], 'review point');
+  const point = exactRecord(
+    record['chargingPoint'],
+    ['id', 'title', 'countryCode', 'currency', 'timezone', 'isActive'],
+    'review point',
+  );
   const booking = exactRecord(record['booking'], ['id', 'status'], 'review booking');
 
   return {
@@ -66,7 +71,13 @@ export function mapReviewDetail(value: unknown): AdminReviewDetail {
     author: mapUserReference(record['author']),
     subject: mapUserReference(record['subject']),
     chargingPoint: {
-      ...mapChargingPointReference({ id: point['id'], title: point['title'] }),
+      ...mapChargingPointTerritoryReference({
+        id: point['id'],
+        title: point['title'],
+        countryCode: point['countryCode'],
+        currency: point['currency'],
+        timezone: point['timezone'],
+      }),
       isActive: booleanValue(point['isActive']),
     },
     booking: {

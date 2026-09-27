@@ -58,6 +58,18 @@ import { AdminIncidentDetail } from '../data-access/incidents.models';
             <dd>{{ current.chargingPoint.isActive ? 'Active' : 'Inactive' }}</dd>
           </div>
           <div class="detail-item">
+            <dt>Country</dt>
+            <dd>{{ current.chargingPoint.countryCode ?? 'Not available' }}</dd>
+          </div>
+          <div class="detail-item">
+            <dt>Currency</dt>
+            <dd>{{ current.chargingPoint.currency ?? 'Not available' }}</dd>
+          </div>
+          <div class="detail-item">
+            <dt>Timezone</dt>
+            <dd>{{ current.chargingPoint.timezone ?? 'Not available' }}</dd>
+          </div>
+          <div class="detail-item">
             <dt>Booking</dt>
             <dd>#{{ current.booking.id }} · {{ humanize(current.booking.status) }}</dd>
           </div>

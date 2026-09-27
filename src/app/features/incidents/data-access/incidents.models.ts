@@ -1,5 +1,6 @@
 import {
   AdminChargingPointReference,
+  AdminChargingPointTerritoryReference,
   AdminUserReference,
 } from '../../../shared/utilities/admin-references';
 
@@ -35,7 +36,7 @@ export interface AdminIncidentDetail {
   reportedByRole: ReporterRole;
   reportedAt: string;
   reporter: AdminUserReference | null;
-  chargingPoint: AdminChargingPointReference & { isActive: boolean };
+  chargingPoint: AdminChargingPointTerritoryReference & { isActive: boolean };
   booking: { id: number; status: string };
   session: {
     id: number;

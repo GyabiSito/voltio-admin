@@ -14,7 +14,14 @@ function detail(overrides: Record<string, unknown> = {}): Record<string, unknown
     reportedByRole: 'driver',
     reportedAt: NOW,
     reporter: { id: 7, displayName: 'Driver', status: 'active' },
-    chargingPoint: { id: 5, title: 'North charger', isActive: true },
+    chargingPoint: {
+      id: 5,
+      title: 'North charger',
+      countryCode: 'CL',
+      currency: 'CLP',
+      timezone: 'America/Santiago',
+      isActive: true,
+    },
     booking: { id: 12, status: 'confirmed' },
     session: {
       id: 14,

@@ -24,7 +24,14 @@ function detail(overrides: Record<string, unknown> = {}): Record<string, unknown
     updatedAt: NOW,
     author: user(),
     subject: { id: 9, displayName: 'Host', status: 'active' },
-    chargingPoint: { id: 5, title: 'North charger', isActive: true },
+    chargingPoint: {
+      id: 5,
+      title: 'North charger',
+      countryCode: 'AR',
+      currency: 'ARS',
+      timezone: 'America/Argentina/Buenos_Aires',
+      isActive: true,
+    },
     booking: { id: 12, status: 'completed' },
     ...overrides,
   };
@@ -81,7 +88,14 @@ describe('review contracts', () => {
   it('maps the exact nested booking and point references', () => {
     expect(mapReviewDetail(detail())).toMatchObject({
       booking: { id: 12, status: 'completed' },
-      chargingPoint: { id: 5, title: 'North charger', isActive: true },
+      chargingPoint: {
+        id: 5,
+        title: 'North charger',
+        countryCode: 'AR',
+        currency: 'ARS',
+        timezone: 'America/Argentina/Buenos_Aires',
+        isActive: true,
+      },
     });
   });
 

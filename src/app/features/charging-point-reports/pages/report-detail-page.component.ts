@@ -132,6 +132,18 @@ import { ChargingPointReportDetail } from '../data-access/reports.models';
               <dd>{{ point.isActive ? 'Active' : 'Inactive' }}</dd>
             </div>
             <div class="detail-item">
+              <dt>Country</dt>
+              <dd>{{ point.countryCode ?? 'Not available' }}</dd>
+            </div>
+            <div class="detail-item">
+              <dt>Currency</dt>
+              <dd>{{ point.currency ?? 'Not available' }}</dd>
+            </div>
+            <div class="detail-item">
+              <dt>Timezone</dt>
+              <dd>{{ point.timezone ?? 'Not available' }}</dd>
+            </div>
+            <div class="detail-item">
               <dt>Connector</dt>
               <dd>{{ point.connectorType ?? 'Unknown' }}</dd>
             </div>

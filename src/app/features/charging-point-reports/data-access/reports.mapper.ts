@@ -9,6 +9,7 @@ import {
 } from '../../../shared/utilities/runtime';
 import {
   mapChargingPointReference,
+  mapChargingPointTerritoryReference,
   mapUserReference,
 } from '../../../shared/utilities/admin-references';
 import {
@@ -110,6 +111,9 @@ function mapReportPointDetail(value: unknown): ReportPointDetail {
   const keys = [
     'id',
     'title',
+    'countryCode',
+    'currency',
+    'timezone',
     'isActive',
     'moderationDisabledAt',
     'connectorType',
@@ -118,7 +122,13 @@ function mapReportPointDetail(value: unknown): ReportPointDetail {
   ] as const;
   const record = exactRecord(value, keys, 'report point detail');
   return {
-    ...mapChargingPointReference({ id: record['id'], title: record['title'] }),
+    ...mapChargingPointTerritoryReference({
+      id: record['id'],
+      title: record['title'],
+      countryCode: record['countryCode'],
+      currency: record['currency'],
+      timezone: record['timezone'],
+    }),
     isActive: booleanValue(record['isActive']),
     moderationDisabledAt: nullableIsoUtcTimestamp(record['moderationDisabledAt']),
     connectorType: nullableString(record['connectorType']),

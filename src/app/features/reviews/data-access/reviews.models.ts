@@ -1,5 +1,6 @@
 import {
   AdminChargingPointReference,
+  AdminChargingPointTerritoryReference,
   AdminUserReference,
 } from '../../../shared/utilities/admin-references';
 
@@ -27,7 +28,7 @@ export interface AdminReviewListItem {
   createdAt: string;
 }
 
-export interface ReviewPointReference extends AdminChargingPointReference {
+export interface ReviewPointReference extends AdminChargingPointTerritoryReference {
   isActive: boolean;
 }
 

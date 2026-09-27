@@ -55,6 +55,9 @@ export interface ChargingPointReportListItem {
 }
 
 export interface ReportPointDetail extends ReportPointListReference {
+  countryCode: string | null;
+  currency: string | null;
+  timezone: string | null;
   moderationDisabledAt: string | null;
   connectorType: string | null;
   powerKw: string | null;

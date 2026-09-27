@@ -31,6 +31,9 @@ function point(overrides: Record<string, unknown> = {}): Record<string, unknown>
   return {
     id: 5,
     title: 'North charger',
+    countryCode: 'UY',
+    currency: 'UYU',
+    timezone: 'America/Montevideo',
     isActive: true,
     moderationDisabledAt: null,
     connectorType: 'CCS2',
@@ -95,9 +98,20 @@ describe('charging point report contracts', () => {
     });
     expect(result.chargingPoint).toMatchObject({
       id: 5,
+      countryCode: 'UY',
+      currency: 'UYU',
+      timezone: 'America/Montevideo',
       isActive: false,
       moderationDisabledAt: NOW,
     });
+  });
+
+  it('preserves nullable territory on a legacy point', () => {
+    expect(
+      mappedDetail({
+        chargingPoint: point({ countryCode: null, currency: null, timezone: null }),
+      }).chargingPoint,
+    ).toMatchObject({ countryCode: null, currency: null, timezone: null });
   });
 
   it.each([
